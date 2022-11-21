@@ -33,7 +33,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="http://127.0.0.1:8000/admin/missing-item-status" class="nav-link">
+            <a href="http://127.0.0.1:8000/admin/missing_-item_-status" class="nav-link">
               <i class="nav-icon fas fa-eye"></i>
               <p>
                 Missing Item Status
@@ -65,15 +65,11 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="http://127.0.0.1:8000/admin/schedule" class="nav-link">
+            <a href="http://127.0.0.1:8000/admin/replacement" class="nav-link">
               <i class="nav-icon fas fa-clipboard"></i>
               <p>
                 Pengajuan Replacement Class
                </p>
             </a>
           </li>
-
-          Route::resource('admin/attendance', 'App\Http\Controllers\Admin\attendanceController');
-          Route::resource('admin/reservation', 'App\Http\Controllers\Admin\reservationController');
-          Route::resource('admin/schedule', 'App\Http\Controllers\Admin\scheduleController');
 </ul>

@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\LaporanController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -27,3 +27,7 @@ Route::resource('admin/missing-item-status', 'App\Http\Controllers\Admin\missing
 Route::resource('admin/attendance', 'App\Http\Controllers\Admin\attendanceController');
 Route::resource('admin/reservation', 'App\Http\Controllers\Admin\reservationController');
 Route::resource('admin/schedule', 'App\Http\Controllers\Admin\scheduleController');
+Route::resource('admin/missing_-item_-status', 'App\Http\Controllers\Admin\missing_Item_StatusController');
+Route::resource('admin/replacement', 'App\Http\Controllers\Admin\replacementController');
+Route::get('/laporan/replacement',[LaporanController::class,'index']);
+Route::get('/laporan/replacement/pdf',[LaporanController::class,'cetak_pdf']);

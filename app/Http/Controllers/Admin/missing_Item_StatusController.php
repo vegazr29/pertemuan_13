@@ -5,10 +5,10 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
 
-use App\Models\category;
+use App\Models\missing_Item_Status;
 use Illuminate\Http\Request;
 
-class categoriesController extends Controller
+class missing_Item_StatusController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -21,13 +21,20 @@ class categoriesController extends Controller
         $perPage = 25;
 
         if (!empty($keyword)) {
-            $categories = category::where('name', 'LIKE', "%$keyword%")
+            $missing_item_status = missing_Item_Status::where('user_id', 'LIKE', "%$keyword%")
+                ->orWhere('class', 'LIKE', "%$keyword%")
+                ->orWhere('room_id', 'LIKE', "%$keyword%")
+                ->orWhere('location_id', 'LIKE', "%$keyword%")
+                ->orWhere('attendence_collect_at', 'LIKE', "%$keyword%")
+                ->orWhere('attendence_return_at', 'LIKE', "%$keyword%")
+                ->orWhere('marker_return_at', 'LIKE', "%$keyword%")
+                ->orWhere('marker_collect_at', 'LIKE', "%$keyword%")
                 ->latest()->paginate($perPage);
         } else {
-            $categories = category::latest()->paginate($perPage);
+            $missing_item_status = missing_Item_Status::latest()->paginate($perPage);
         }
 
-        return view('admin.categories.index', compact('categories'));
+        return view('admin.missing_-item_-status.index', compact('missing_item_status'));
     }
 
     /**
@@ -37,7 +44,7 @@ class categoriesController extends Controller
      */
     public function create()
     {
-        return view('admin.categories.create');
+        return view('admin.missing_-item_-status.create');
     }
 
     /**
@@ -52,9 +59,9 @@ class categoriesController extends Controller
         
         $requestData = $request->all();
         
-        category::create($requestData);
+        missing_Item_Status::create($requestData);
 
-        return redirect('admin/categories')->with('flash_message', 'category added!');
+        return redirect('admin/missing_-item_-status')->with('flash_message', 'missing_Item_Status added!');
     }
 
     /**
@@ -66,9 +73,9 @@ class categoriesController extends Controller
      */
     public function show($id)
     {
-        $category = category::findOrFail($id);
+        $missing_item_status = missing_Item_Status::findOrFail($id);
 
-        return view('admin.categories.show', compact('category'));
+        return view('admin.missing_-item_-status.show', compact('missing_item_status'));
     }
 
     /**
@@ -80,9 +87,9 @@ class categoriesController extends Controller
      */
     public function edit($id)
     {
-        $category = category::findOrFail($id);
+        $missing_item_status = missing_Item_Status::findOrFail($id);
 
-        return view('admin.categories.edit', compact('category'));
+        return view('admin.missing_-item_-status.edit', compact('missing_item_status'));
     }
 
     /**
@@ -98,10 +105,10 @@ class categoriesController extends Controller
         
         $requestData = $request->all();
         
-        $category = category::findOrFail($id);
-        $category->update($requestData);
+        $missing_item_status = missing_Item_Status::findOrFail($id);
+        $missing_item_status->update($requestData);
 
-        return redirect('admin/categories')->with('flash_message', 'category updated!');
+        return redirect('admin/missing_-item_-status')->with('flash_message', 'missing_Item_Status updated!');
     }
 
     /**
@@ -113,8 +120,8 @@ class categoriesController extends Controller
      */
     public function destroy($id)
     {
-        category::destroy($id);
+        missing_Item_Status::destroy($id);
 
-        return redirect('admin/categories')->with('flash_message', 'category deleted!');
+        return redirect('admin/missing_-item_-status')->with('flash_message', 'missing_Item_Status deleted!');
     }
 }

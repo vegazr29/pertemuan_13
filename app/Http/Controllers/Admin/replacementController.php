@@ -5,10 +5,10 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
 
-use App\Models\category;
+use App\Models\replacement;
 use Illuminate\Http\Request;
 
-class categoriesController extends Controller
+class replacementController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -21,13 +21,23 @@ class categoriesController extends Controller
         $perPage = 25;
 
         if (!empty($keyword)) {
-            $categories = category::where('name', 'LIKE', "%$keyword%")
+            $replacement = replacement::where('nama_lengkap', 'LIKE', "%$keyword%")
+                ->orWhere('mata_kuliah', 'LIKE', "%$keyword%")
+                ->orWhere('kelas', 'LIKE', "%$keyword%")
+                ->orWhere('prodi', 'LIKE', "%$keyword%")
+                ->orWhere('semester', 'LIKE', "%$keyword%")
+                ->orWhere('tahun_akademik', 'LIKE', "%$keyword%")
+                ->orWhere('tanggal', 'LIKE', "%$keyword%")
+                ->orWhere('jadwal_kuliah', 'LIKE', "%$keyword%")
+                ->orWhere('tanggal_replacement', 'LIKE', "%$keyword%")
+                ->orWhere('jam_replacement', 'LIKE', "%$keyword%")
+                ->orWhere('alasan_replacement', 'LIKE', "%$keyword%")
                 ->latest()->paginate($perPage);
         } else {
-            $categories = category::latest()->paginate($perPage);
+            $replacement = replacement::latest()->paginate($perPage);
         }
 
-        return view('admin.categories.index', compact('categories'));
+        return view('admin.replacement.index', compact('replacement'));
     }
 
     /**
@@ -37,7 +47,7 @@ class categoriesController extends Controller
      */
     public function create()
     {
-        return view('admin.categories.create');
+        return view('admin.replacement.create');
     }
 
     /**
@@ -52,9 +62,9 @@ class categoriesController extends Controller
         
         $requestData = $request->all();
         
-        category::create($requestData);
+        replacement::create($requestData);
 
-        return redirect('admin/categories')->with('flash_message', 'category added!');
+        return redirect('admin/replacement')->with('flash_message', 'replacement added!');
     }
 
     /**
@@ -66,9 +76,9 @@ class categoriesController extends Controller
      */
     public function show($id)
     {
-        $category = category::findOrFail($id);
+        $replacement = replacement::findOrFail($id);
 
-        return view('admin.categories.show', compact('category'));
+        return view('admin.replacement.show', compact('replacement'));
     }
 
     /**
@@ -80,9 +90,9 @@ class categoriesController extends Controller
      */
     public function edit($id)
     {
-        $category = category::findOrFail($id);
+        $replacement = replacement::findOrFail($id);
 
-        return view('admin.categories.edit', compact('category'));
+        return view('admin.replacement.edit', compact('replacement'));
     }
 
     /**
@@ -98,10 +108,10 @@ class categoriesController extends Controller
         
         $requestData = $request->all();
         
-        $category = category::findOrFail($id);
-        $category->update($requestData);
+        $replacement = replacement::findOrFail($id);
+        $replacement->update($requestData);
 
-        return redirect('admin/categories')->with('flash_message', 'category updated!');
+        return redirect('admin/replacement')->with('flash_message', 'replacement updated!');
     }
 
     /**
@@ -113,8 +123,8 @@ class categoriesController extends Controller
      */
     public function destroy($id)
     {
-        category::destroy($id);
+        replacement::destroy($id);
 
-        return redirect('admin/categories')->with('flash_message', 'category deleted!');
+        return redirect('admin/replacement')->with('flash_message', 'replacement deleted!');
     }
 }

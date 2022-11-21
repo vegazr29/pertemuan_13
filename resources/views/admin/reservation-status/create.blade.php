@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title','reservation')
+@section('title','reservation-status')
 @section('content')
     <div class="container">
         <div class="row">
